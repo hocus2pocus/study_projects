@@ -1,12 +1,22 @@
 puts 'Укажите три стороны треугольника:'
 edges = []
-3.times {edges << gets.chomp.to_f}
+3.times { edges << gets.to_f }
+edges.sort!
 
-triangle = edges.sort.map {|edge| edge**2}
+if edges.min == edges.max
+  puts 'Ваш треугольник - равносторонний.'
+  puts 'Равносторонний треугольник не может быть прямоугольным.'
+  exit
+end
 
-puts 'Параметры вышего треугольника:'
-triangle[0] + triangle[1] == triangle[2] ? (puts '* прямоугольный') : (puts '* не прямоугольный')
-triangle.select {|edge| triangle.count(edge) > 1}.any? ? (puts '* равнобедренный') : (puts '* не равнобедренный')
-triangle.min == triangle.max ? (puts '* равносторонний') : (puts '* не равносторонний')
-puts ''
-puts 'Спасибо.'
+pythagorean = edges[2]**2 == edges[0]**2 + edges[1]**2
+
+if pythagorean
+  print 'Ваш треугольник прямоугольный'
+  if triangle.select { |edge| triangle.count(edge) > 1 }.any?
+    print ' и равнобедренный'
+  end
+  puts '.'
+else
+  puts 'Ваш треугольник не прямоугольный.'
+end

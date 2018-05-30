@@ -1,14 +1,14 @@
 puts "Введите число 'a':"
 print "> "
-a = gets.chomp.to_f
+a = gets.to_f
 
 puts "Введите число 'b':"
 print "> "
-b = gets.chomp.to_f
+b = gets.to_f
 
 puts "Введите число 'c':"
 print "> "
-c = gets.chomp.to_f
+c = gets.to_f
 
 discr = b**2 - 4 * a * c
 

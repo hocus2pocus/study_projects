@@ -1,9 +1,11 @@
 puts 'Введите значение основания треугольника:'
-print 'a = '
-a = gets.chomp.to_f
+print 'base = '
+base = gets.to_f
 
 puts 'Введите значение высоты треугольника:'
-print 'h = '
-h = gets.chomp.to_f
+print 'height = '
+height = gets.to_f
 
-puts "Площадь треугольника = #{0.5 * a * h}"
+area = 0.5 * base * height
+
+puts "Площадь треугольника = #{area}"

@@ -10,13 +10,12 @@ if edges.min == edges.max
 end
 
 pythagorean = edges[2]**2 == edges[0]**2 + edges[1]**2
+isosceles = edges[0] == edges[1]
 
-if pythagorean
-  print 'Ваш треугольник прямоугольный'
-  if triangle.select { |edge| triangle.count(edge) > 1 }.any?
-    print ' и равнобедренный'
-  end
-  puts '.'
+if pythagorean && isosceles
+  puts 'Ваш треугольник прямоугольный и равнобедренный.'
+elsif pythagorean
+  puts 'Ваш треугольник прямоугольный.'
 else
   puts 'Ваш треугольник не прямоугольный.'
 end

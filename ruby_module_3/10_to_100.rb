@@ -1,10 +1,2 @@
-numbers = []
-number = 10
-
-loop do
-  numbers << number
-  number += 5
-  break if number > 100
-end
-
+numbers = (10..100).step(5).to_a
 p numbers

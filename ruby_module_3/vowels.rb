@@ -1,10 +1,12 @@
-alphabet = ('A'..'Z').to_a
-vowels = {}
+#Массивом задаю список гласных.
+vowels = ['A', 'E', 'I', 'O', 'U', 'Y']
 
-alphabet.each do |letter|
- if ['A', 'E', 'I', 'O', 'U', 'Y'].include?(letter)
-  vowels.store(letter, alphabet.index(letter).+(1))
-  end
+#Создаю хэш гласных букв и увеличиваю их индекс на 1.
+alphabet = {} 
+
+('A'..'Z').each_with_index do |letter, index| 
+  alphabet[letter] = index + 1 if vowels.include?(letter)
 end
 
-p vowels
+#Вывожу откорректированный хэш, содержащий только глассные.
+p alphabet

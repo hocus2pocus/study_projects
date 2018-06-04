@@ -12,7 +12,7 @@ loop do
   print 'стоимость: '
   value = gets.to_f
   print 'количество: '
-  quantity = gets.chomp.to_i
+  quantity = gets.to_f
   purchases[goods] = {value: value, quantity: quantity}
 end
 
@@ -26,7 +26,7 @@ price_of_cart = 0
 
 purchases.each do |goods, price| 
   full_price = price[:value] * price[:quantity]
-  puts "Итоговая цена товара '#{goods}' в количестве '#{price[:value]}'' по цене '#{price[:quantity]}' за единицу составила '#{full_price}'."
+  puts "Итоговая цена товара '#{goods}' в количестве '#{price[:quantity]}'' по цене '#{price[:value]}' за единицу составила '#{full_price}'."
   price_of_cart += full_price
 end
 

@@ -6,16 +6,16 @@ class Station
     @trains = []
   end
 
-  def handle_train_arrival(train)
+  def take_train(train)
     @trains << train
   end
 
   def trains_by_type(type)
-    @trains.select { |train| train.type == type }.count
+    @trains.count { |train| train.type == type }
   end
 
   def send_train(train)
-    @trains.delete(train) if @trains.include?(train)
+    @trains.delete(train)
   end
 end
 
@@ -31,12 +31,11 @@ class Route
   end
 
   def delete_station(station)
-    return if station == @stations.first || station == @stations.last
-    @stations.delete(station)
+    @stations.delete(station) unless [@stations.first, @stations.last].include?(station)
   end
 
   def show_stations
-    stations.each { |station| station.name }
+    stations.each { |station| puts station.name }
   end
 end
 
@@ -60,7 +59,7 @@ class Train
 
   def set_route(route)
     @route = route
-    @route.stations.first.handle_train_arrival(self)
+    @route.stations.first.take_train(self)
     @current_station_index = 0
   end
 
@@ -69,33 +68,37 @@ class Train
   end
 
   def previous_station
-    return if @route.stations[@current_station_index] == @route.stations.first
+    return if current_station == @route.stations.first
     @route.stations[@current_station_index - 1]
   end
 
   def next_station
-    return if @route.stations[@current_station_index] == @route.stations.last
+    return if current_station == @route.stations.last
     @route.stations[@current_station_index + 1]
   end
 
   def backward
-    if previous_station
-      @route.stations[@current_station_index].send_train(self)
-      previous_station.handle_train_arrival(self)
+    return unless previous_station
+      current_station.send_train(self)
+      previous_station.take_train(self)
       @current_station_index -= 1
-    end
   end
 
   def forward
-    if next_station
-      @route.stations[@current_station_index].send_train(self)
-      next_station.handle_train_arrival(self)
+    return unless next_station
+      current_station.send_train(self)
+      next_station.take_train(self)
       @current_station_index += 1
-    end
   end
 
-  def speed(value)
+  def speed_up(value)
     return if value < 0
-    @speed = value
+    @speed += value
+  end
+
+  def speed_down(value)
+    return if value < 0
+    @speed -= value
+    @speed = 0 if @speed < 0
   end
 end

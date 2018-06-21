@@ -1,9 +1,11 @@
 class CargoTrain < Train
-  attr_reader :type
-
   def initialize(number)
-    @number = number
-    @type = 'Cargo'
-    super(number)
+    type = 'Cargo'
+    super(number, type)
+  end
+
+  def add_wagon
+    wagon = CargoWagon.new
+    super(wagon)
   end
 end

@@ -4,5 +4,4 @@ class PassengerWagon
   def initialize
     @wagon_type = 'Passenger'
   end
-
 end

@@ -1,5 +1,4 @@
 class Station
-
   attr_reader :trains, :name
 
   def initialize(name)
@@ -21,7 +20,7 @@ class Station
 
   def show_trains
     @trains.each.with_index(1) do |train, index|
-      puts "#{index} - тип: #{train.type} - #{train.number_of_wagons.count} вагон / вагонов"
+      puts "#{index} - тип: #{train.type} - #{train.wagons.count} вагон / вагонов"
     end
   end
 end

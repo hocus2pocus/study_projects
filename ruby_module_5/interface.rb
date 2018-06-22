@@ -11,95 +11,91 @@ class Interface
 
   def start_menu
     case first_question_pack
-      when 1
-        station_menu
-
-      when 2
-        route_menu
-
-      when 3
-        train_menu
-
-      when 9
-        seed
-        start_menu
-
-      when 0
-        exit
+    when 1
+      station_menu
+    when 2
+      route_menu
+    when 3
+      train_menu
+    when 9
+      seed
+      start_menu
+    when 0
+      exit
+    else
+      error_message
+      start_menu
     end
   end
 
+private
+
   def station_menu
     case station_question_pack
-      when 1
-        create_station
-        station_menu
-
-      when 2
-        trains_on_station
-        station_menu
-
-      when 0
-        start_menu
+    when 1
+      create_station
+      station_menu
+    when 2
+      trains_on_station
+      station_menu
+    when 0
+      start_menu
+    else
+      error_message
+      station_menu
     end
   end
 
   def route_menu
     case route_question_pack
-      when 1
-        create_route
-        route_menu
-
-      when 2
-        add_station
-        route_menu
-
-      when 3
-        delete_station
-        route_menu
-
-      when 4
-        route_stations
-        route_menu
-
-      when 0
-        start_menu
+    when 1
+      create_route
+      route_menu
+    when 2
+      add_station
+      route_menu
+    when 3
+      delete_station
+      route_menu
+    when 4
+      route_stations
+      route_menu
+    when 0
+      start_menu
+    else
+      error_message
+      route_menu
     end
   end
 
   def train_menu
     case train_question_pack
-
-      when 1
-        create_cargo_train
-        train_menu
-
-      when 2
-        create_passenger_train
-        train_menu
-
-      when 3
-        set_route
-        train_menu
-
-      when 4
-        add_wagon
-        train_menu
-
-      when 5
-        remove_wagon
-        train_menu
-
-      when 6
-        train_forward
-        train_menu
-
-      when 7
-        train_backward
-        train_menu
-
-      when 0
-        start_menu
+    when 1
+      create_cargo_train
+      train_menu
+    when 2
+      create_passenger_train
+      train_menu
+    when 3
+      set_route
+      train_menu
+    when 4
+      add_wagon
+      train_menu
+    when 5
+      remove_wagon
+      train_menu
+    when 6
+      train_forward
+      train_menu
+    when 7
+      train_backward
+      train_menu
+    when 0
+      start_menu
+    else
+      error_message
+      train_menu
     end
   end
 
@@ -109,11 +105,13 @@ class Interface
   end
 
   def trains_on_station
-    station = station_check
+    stations_check
+    station = choose_station
     station.show_trains
   end
 
   def create_route
+    stations_check
     stations_list
     first_station_number_input
     first_station = @stations[gets.to_i - 1]
@@ -125,13 +123,15 @@ class Interface
   end
 
   def add_station
-    route = route_check
-    station = station_check
+    routes_check
+    route = choose_route
+    station = choose_station
     route.add_station(station)
   end
 
   def delete_station
-    route = route_check
+    routes_check
+    route = choose_route
     route.show_stations
     station_number_input
     station = route.show_stations[gets.to_i - 1]
@@ -139,7 +139,8 @@ class Interface
   end
 
   def route_stations
-    route = route_check
+    routes_check
+    route = choose_route
     route.show_stations
   end
 
@@ -156,29 +157,53 @@ class Interface
   end
 
   def set_route
-    train = train_check
-    route = route_check
+    trains_check
+    routes_check
+    train = choose_train
+    route = choose_route
     train.set_route(route)
   end
 
   def add_wagon
-    train = train_check
-    train.add_wagon
+    trains_check
+    train = choose_train
+    wagon = create_wagon(train)
+    train.add_wagon(wagon)
   end
 
   def remove_wagon
-    train = train_check
-    train.remove_wagon
+    trains_check
+    train = choose_train
+    wagons_list(train)
+    remove_wagon_input
+    wagon = train.wagons[gets.to_i - 1]
+    if train.wagons.include?(wagon)
+      train.remove_wagon(wagon)
+    else
+      error_message
+      remove_wagon
+    end
   end
 
   def train_forward
-    train = train_check
+    trains_check
+    train = choose_train
     train.forward
   end
 
   def train_backward
-    train = train_check
+    trains_check
+    train = choose_train
     train.backward
+  end
+
+  def create_wagon(train)
+    case
+    when train.kind_of?(CargoTrain)
+      CargoWagon.new
+    when train.kind_of?(PassengerTrain)
+      PassengerWagon.new
+    end
   end
 
   def stations_list
@@ -199,51 +224,78 @@ class Interface
     end
   end
 
-  def get_station_from_user
-    puts 'введите номер станции'
-    print '> '
-    input = gets.to_i - 1
+  def wagons_list(train)
+    train.wagons.each.with_index(1) do |wagon, index|
+      puts "#{index} - #{wagon.wagon_type}"
+    end
   end
 
-  def station_check
+  def get_station_from_user
+    station_number_input
+    gets.to_i - 1
+  end
+
+  def choose_station
     stations_list
     station = get_station_from_user
     if @stations[station]
       @stations[station]
     else
       error_message
+      choose_station
     end
   end
 
   def get_route_from_user
-    puts 'введите номер маршрута'
-    print '> '
-    input = gets.to_i - 1
+    route_number_input
+    gets.to_i - 1
   end
 
-  def route_check
+  def choose_route
     routes_list
     route = get_route_from_user
     if @routes[route]
       @routes[route]
     else
       error_message
+      choose_route
     end
   end
 
   def get_train_from_user
-    puts 'введите порядковый номер поезда'
-    print '> '
-    input = gets.to_i - 1
+    train_number_input
+    gets.to_i - 1
   end
 
-  def train_check
+  def choose_train
     trains_list
     train = get_train_from_user
     if @trains[train]
       @trains[train]
     else
       error_message
+      choose_train
+    end
+  end
+
+  def stations_check
+    if @stations.empty?
+      error_message
+      start_menu
+    end
+  end
+
+  def routes_check
+    if @routes.empty?
+      error_message
+      start_menu
+    end
+  end
+
+  def trains_check
+    if @trains.empty?
+      error_message
+      start_menu
     end
   end
 

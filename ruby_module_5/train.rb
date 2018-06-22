@@ -8,14 +8,6 @@ class Train
     @speed = 0
   end
 
-  # def add_wagon
-  #   @number_of_wagons += 1 if speed == 0
-  # end
-
-  # def remove_wagon
-  #   @number_of_wagons -= 1 if speed == 0 && @number_of_wagons > 0
-  # end
-
   def add_wagon(wagon)
     if speed == 0
       @wagons << wagon
@@ -24,9 +16,9 @@ class Train
     end
   end
 
-  def remove_wagon
+  def remove_wagon(wagon)
     unless @wagons.empty? || speed > 0
-      @wagons.delete_at(0)
+      @wagons.delete(wagon)
     else
       puts 'поезд необходимо остановить либо у поезда нет вагонов'
       puts "текущая скорость #{@speed}"

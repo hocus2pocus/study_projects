@@ -88,4 +88,8 @@ module InterfaceSupport
   def error_message
     puts 'объект не обнаружен, повторите операцию'
   end
+
+  def no_wagons_error
+    puts 'у выбранного поезда нет вагонов'
+  end
 end

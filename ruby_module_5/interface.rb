@@ -174,6 +174,8 @@ private
   def remove_wagon
     trains_check
     train = choose_train
+    return no_wagons_error if train.wagons.empty?
+
     wagons_list(train)
     remove_wagon_input
     wagon = train.wagons[gets.to_i - 1]

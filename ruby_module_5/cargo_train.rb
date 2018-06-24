@@ -5,9 +5,7 @@ class CargoTrain < Train
 
   def add_wagon(wagon)
     if wagon.kind_of?(CargoWagon)
-      super(wagon)
-    else
-      puts 'неверный тип вагона'
+      super
     end
   end
 end

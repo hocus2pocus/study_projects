@@ -5,22 +5,19 @@ class Train
     @number = number
     @type = type
     @wagons = []
-    @speed = 0
+    @speed = 5
   end
 
   def add_wagon(wagon)
-    return 'поезд необходимо остановить' if speed != 0
+    return if speed != 0
     @wagons << wagon
   end
 
   def remove_wagon(wagon)
-    return 'поезд необходимо остановить' if speed != 0
+    return if speed != 0
 
     if !@wagons.empty?
       @wagons.delete(wagon)
-    else
-      puts 'у поезда нет вагонов'
-      #puts "текущая скорость #{@speed}"
     end
   end
 

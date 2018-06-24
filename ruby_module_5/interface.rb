@@ -7,6 +7,8 @@ class Interface
     @stations = []
     @routes = []
     @trains = []
+    #отцепленные вагоны
+    @wagons = []
   end
 
   def start_menu
@@ -22,6 +24,8 @@ class Interface
       start_menu
     when 0
       exit
+    # when 99
+    #   p @wagons
     else
       error_message
       start_menu
@@ -181,6 +185,7 @@ private
     wagon = train.wagons[gets.to_i - 1]
     if train.wagons.include?(wagon)
       train.remove_wagon(wagon)
+      @wagons << wagon
     else
       error_message
       remove_wagon

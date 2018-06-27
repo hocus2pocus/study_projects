@@ -1,7 +1,6 @@
-require_relative 'instance_counter.rb'
+require_relative 'manufacturer.rb'
 
 class Wagon
-  include InstanceCounter
   include Manufacturer
   attr_reader :wagon_type
 

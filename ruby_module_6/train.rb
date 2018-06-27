@@ -1,17 +1,15 @@
 require_relative 'instance_counter.rb'
+require_relative 'manufacturer.rb'
 
 class Train
   include InstanceCounter
   include Manufacturer
   attr_reader :speed, :type, :wagons, :route, :number
 
-  @@trains = []
+  @@trains = {}
 
   def self.find(number)
-    selected_train = @@trains.select { |train| train.number == number}
-    unless selected_train.empty?
-      selected_train
-    end
+    @@trains[number]
   end
 
   def initialize(number, type)
@@ -20,7 +18,7 @@ class Train
     @wagons = []
     @speed = 0
     register_instance
-    @@trains << self
+    @@trains[self.number] = self
   end
 
   def add_wagon(wagon)

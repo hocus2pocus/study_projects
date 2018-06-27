@@ -18,7 +18,7 @@ class Train
     @wagons = []
     @speed = 0
     register_instance
-    @@trains[self.number] = self
+    @@trains[number] = self
   end
 
   def add_wagon(wagon)

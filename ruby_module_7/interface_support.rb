@@ -93,19 +93,20 @@ module InterfaceSupport
     puts 'у выбранного поезда нет вагонов'
   end
 
-  def successful_creation
-    puts "объект типа #{self.class} успешно создан"
+  def successful_creation_station(station_name)
+    puts "объект #{station_name} типа Станция успешно создан"
   end
 
-  def invalid_number
-    puts "номер указан некорректно (формат номера 'ХХХ-ХХ')"
+  def successful_creation_train(number, type)
+    puts "объект типа #{type} c идентификатором #{number} успешно создан"
   end
 
-  def invalid_type
-    puts "тип поезда / вагона указан некорректно (допустимые типы: 'Cargo', 'Passenger')"
+  def successful_creation_wagon(type)
+    puts "объект типа #{type} вагон успешно создан"
   end
 
-  def invalid_name
-    puts "название указано некорректно или не указано"
+  def successful_creation_route(first_station, last_station)
+    puts "объект типа Маршрут успешно создан"
+    puts "начальная станция - #{first_station}, конечная станция - #{last_station}"
   end
 end

@@ -105,7 +105,11 @@ private
 
   def create_station
     station_name_input
-    @stations << Station.new(gets.chomp)
+    station_name = gets.chomp
+    @stations << Station.new(station_name)
+    successful_creation_station(station_name)
+    rescue
+      retry
   end
 
   def trains_on_station
@@ -123,7 +127,11 @@ private
     last_station_number_input
     last_station = @stations[gets.to_i - 1]
 
-    @routes << Route.new(first_station,last_station)
+    @routes << Route.new(first_station, last_station)
+    successful_creation_route(first_station.name, last_station.name)
+
+    rescue
+      retry
   end
 
   def add_station
@@ -151,21 +159,19 @@ private
   def create_cargo_train
     train_id_input
     number = gets.to_s
-    begin
-      @trains << CargoTrain.new(number)
+    @trains << CargoTrain.new(number)
+    successful_creation_train(number, 'Грузовой Поезд')
     rescue
-      create_cargo_train
-    end
+      retry
   end
 
   def create_passenger_train
     train_id_input
     number = gets.to_s
-    begin
-      @trains << PassengerTrain.new(number)
+    @trains << PassengerTrain.new(number)
+    successful_creation_train(number, 'Пассажирский Поезд')
     rescue
-      create_passenger_train
-    end
+      retry
   end
 
   def set_route
@@ -216,8 +222,10 @@ private
     case
     when train.kind_of?(CargoTrain)
       CargoWagon.new
+      successful_creation_wagon('Грузовой')
     when train.kind_of?(PassengerTrain)
       PassengerWagon.new
+      successful_creation_wagon('Пассажирский')
     end
   end
 

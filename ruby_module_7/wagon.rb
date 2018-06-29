@@ -1,9 +1,9 @@
 require_relative 'manufacturer.rb'
-require_relative 'interface_support.rb'
+require_relative 'classes_support.rb'
 require_relative 'validation.rb'
 
 class Wagon
-  include InterfaceSupport
+  include ClassesSupport
   include Manufacturer
   include Validation
   attr_reader :wagon_type
@@ -16,8 +16,6 @@ class Wagon
   protected
 
   def validate!
-    raise invalid_type unless wagon_type == :Cargo || :Passenger
-    successful_creation
-    true
+    raise invalid_type unless [:Cargo, :Passenger].include?(wagon_type)
   end
 end

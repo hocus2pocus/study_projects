@@ -1,10 +1,10 @@
 require_relative 'instance_counter.rb'
 require_relative 'manufacturer.rb'
-require_relative 'interface_support.rb'
+require_relative 'classes_support.rb'
 require_relative 'validation.rb'
 
 class Train
-  include InterfaceSupport
+  include ClassesSupport
   include InstanceCounter
   include Manufacturer
   include Validation
@@ -25,7 +25,6 @@ class Train
     @speed = 0
     validate!
     register_instance
-    successful_creation
     @@trains[number] = self
   end
 
@@ -92,7 +91,6 @@ class Train
   def validate!
     raise RuntimeError, invalid_number if number.nil?
     raise RuntimeError, invalid_number if number !~ NUMBER
-    raise RuntimeError, invalid_type unless type == :Cargo || :Passenger
-    true
+    raise RuntimeError, invalid_type unless [:Cargo, :Passenger].include?(type)
   end
 end

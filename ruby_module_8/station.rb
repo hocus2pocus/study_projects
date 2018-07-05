@@ -1,9 +1,9 @@
 require_relative 'instance_counter.rb'
-require_relative 'classes_support.rb'
+require_relative 'classes_notifications.rb'
 require_relative 'validation.rb'
 
 class Station
-  include ClassesSupport
+  include ClassesNotifications
   include InstanceCounter
   include Validation
   attr_reader :trains, :name
@@ -34,16 +34,23 @@ class Station
     @trains.delete(train)
   end
 
-  def show_trains
-    @trains.each.with_index(1) do |train, index|
-      puts "#{index} - тип: #{train.type} - #{train.wagons.count} вагон / вагонов"
+  def show_trains(&block)
+    if block_given?
+      @trains.each do |train|
+        yield(train)
+      end
+    else
+      @trains.each.with_index(1) do |train, index|
+        puts "#{index} - тип: #{train.type} - #{train.wagons.count} вагон / вагонов"
+      end
     end
   end
 
   protected
 
   def validate!
-    raise invalid_name unless name.kind_of?(String)
+    raise invalid_name if name.nil?
     raise invalid_name if name.empty?
+    raise invalid_name unless name.kind_of?(String)
   end
 end

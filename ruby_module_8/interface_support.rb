@@ -96,16 +96,31 @@ module InterfaceSupport
     puts 'у выбранного поезда нет вагонов'
   end
 
+  def no_trains_message
+    puts 'на выбранной станции нет поездов'
+  end
+
   def set_places_message
     puts "укажите количество мест в создаваемом вагоне"
+    print '> '
   end
 
   def set_volume_message
     puts "укажите объём создаваемого вагона"
+    print '> '
   end
 
   def take_volume
     puts "укажите объем, который необходимо занять"
+    print '> '
+  end
+
+  def wagon_space_error
+    puts "в вагоне недостаточно места"
+  end
+
+  def train_info(id, type)
+    puts "Поезд #{id} типа #{type}:"
   end
 
   def successful_creation_station(station_name)

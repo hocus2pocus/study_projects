@@ -1,14 +1,10 @@
-require_relative 'classes_notifications.rb'
-
 class PassengerWagon < Wagon
-  include ClassesNotifications
-
   def initialize(seats)
     super(:Passenger, seats)
   end
 
   def take
-    super(1, "мест")
+    super(1)
   end
 
   # def validate!

@@ -34,23 +34,21 @@ class Station
     @trains.delete(train)
   end
 
-  def show_trains(&block)
-    if block_given?
-      @trains.each do |train|
-        yield(train)
-      end
-    else
-      @trains.each.with_index(1) do |train, index|
-        puts "#{index} - тип: #{train.type} - #{train.wagons.count} вагон / вагонов"
-      end
+  def show_trains
+    @trains.each.with_index(1) do |train, index|
+      puts "#{index} - тип: #{train.type} - #{train.wagons.count} вагон / вагонов"
     end
+  end
+
+  def each_train(&block)
+    @trains.each { |train| yield(train) }
   end
 
   protected
 
   def validate!
-    raise invalid_name if name.nil?
-    raise invalid_name if name.empty?
+    #raise invalid_name if name.nil?
     raise invalid_name unless name.kind_of?(String)
+    raise invalid_name if name.empty?
   end
 end

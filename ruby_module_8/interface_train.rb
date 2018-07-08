@@ -53,8 +53,8 @@ module InterfaceTrain
   def all_trains_info
     return if @trains.empty?
     wagon_id = 0
-    cargo_block = Proc.new { |wagon| puts "Вагон № #{wagon_id += 1} - тип #{wagon.wagon_type} - свободный объём #{wagon.available_space} - занятый объём #{wagon.taken_space}" }
-    passenger_block = Proc.new { |wagon| puts "Вагон № #{wagon_id += 1} - тип #{wagon.wagon_type} - свободно мест #{wagon.available_space} - занято мест #{wagon.taken_space}" }
+    cargo_block = Proc.new { |wagon| puts "Вагон № #{wagon_id += 1} - тип #{wagon.wagon_type} - свободный объём #{wagon.free_space} - занятый объём #{wagon.taken_space}" }
+    passenger_block = Proc.new { |wagon| puts "Вагон № #{wagon_id += 1} - тип #{wagon.wagon_type} - свободно мест #{wagon.free_space} - занято мест #{wagon.taken_space}" }
 
     @trains.each do |train|
       puts '*** *** ***'

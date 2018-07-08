@@ -16,20 +16,13 @@ class Wagon
   end
 
   def take(take_space)
-    return if @available_space < 1 || @available_space < take_space
-    #if @available_space >= @taken_space
-      @available_space -= take_space
-      @taken_space += take_space
-    # end
+    return if free_space < take_space
+    @taken_space += take_space
   end
 
-  # def show
-  #   @available_space
-  # end
-
-  # def show_taken
-  #   @taken_space
-  # end
+  def free_space
+    @available_space - @taken_space
+  end
 
   protected
 

@@ -28,8 +28,6 @@ class Route
   protected
 
   def validate!
-    # raise invalid_station unless @stations.first.kind_of?(Station)
-    # raise invalid_station unless @stations.last.kind_of?(Station)
     raise invalid_station unless @stations.all? { |station| station.kind_of?(Station) }
     raise same_station if @stations.first.eql?(@stations.last)
   end

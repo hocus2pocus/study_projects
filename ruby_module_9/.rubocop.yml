@@ -1,0 +1,17 @@
+Style/Documentation:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - 'interface.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'interface_support.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'interface_support.rb'

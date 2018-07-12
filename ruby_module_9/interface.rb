@@ -34,7 +34,7 @@ class Interface
     when 0
       exit
     else
-      error_message_ee
+      error_message
       start_menu
     end
   end

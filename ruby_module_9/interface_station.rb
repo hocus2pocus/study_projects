@@ -20,11 +20,12 @@ module InterfaceStation
     @stations.each do |station|
       puts '*** *** ***'
       puts station.name
-      if !station.trains.empty?
-        station.each_train do |train|
-          puts %(Поезд № #{train.number} -
-          тип #{train.type} - #{train.wagons.count} вагонов)
-        end
+      if station.trains.any?
+        # station.each_train do |train|
+        #   puts %(Поезд № #{train.number} -
+        #   тип #{train.type} - #{train.wagons.count} вагонов)
+        # end
+        search_stations_info(station)
       else
         no_trains_message
       end
@@ -32,4 +33,11 @@ module InterfaceStation
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  def search_stations_info(station)
+    station.each_train do |train|
+      puts %(Поезд № #{train.number} - #{train.type})
+      puts %(вагонов - #{train.wagons.count})
+    end
+  end
 end

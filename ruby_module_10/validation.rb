@@ -8,13 +8,18 @@ module Validation
     def validate(attribute, validator, *arguments)
       @validation ||= []
       @validation << {attribute: attribute, validator: validator, arguments: arguments}
+      p @validation
     end
   end
 
   module InstanceMethods
     def validate!
       self.class.instance_variable_get('@validation').each do |set|
-        send("#{set[:validator]}_validator".to_sym, set[:attribute], set[:arguments].first)
+        opted_validator = "#{set[:validator]}_validator"
+        p opted_validator
+        value = instance_variable_get("@#{set[:attribute]}".to_sym)
+        p value
+        send(opted_validator, value, *set[:arguments].first)
       end
     end
 
@@ -34,8 +39,9 @@ module Validation
     end
 
     def type_validator(attribute, argument)
-      p attribute.class
-      p argument
+      #p attribute.class
+      #p attribute
+      #p argument
       raise "#{attribute} имеет неверный тип" unless attribute.is_a?(argument)
     end
   end

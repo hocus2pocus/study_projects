@@ -233,13 +233,13 @@ class Interface
     @stations << Station.new('Shire')
 
     @routes << Route.new(@stations[0], @stations[1])
-    @routes << Route.new(@stations[0], @stations[2])
-    @routes << Route.new(@stations[0], @stations[3])
+    # @routes << Route.new(@stations[0], @stations[2])
+    # @routes << Route.new(@stations[0], @stations[3])
 
-    @trains << CargoTrain.new('11111')
-    @trains << CargoTrain.new('22222')
-    @trains << PassengerTrain.new('88888')
-    @trains << PassengerTrain.new('99999')
+    # @trains << CargoTrain.new('11111')
+    # @trains << CargoTrain.new('22222')
+    # @trains << PassengerTrain.new('88888')
+    # @trains << PassengerTrain.new('99999')
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

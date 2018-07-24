@@ -11,8 +11,8 @@ class Route
 
   attr_reader :stations
 
-  validate :station_first, :type, Station
-  validate :station_last, :type, Station
+   validate :station_first, :type, Station
+  # validate :station_last, :type, Station
 
   def initialize(station_first, station_last)
     @stations = [station_first, station_last]

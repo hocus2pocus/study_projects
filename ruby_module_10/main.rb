@@ -10,8 +10,8 @@ require_relative 'cargo_wagon.rb'
 require_relative 'passenger_wagon.rb'
 
 a = Interface.new
-# a.start_menu
-a.send(:seed)
-p a.instance_variable_get('@stations')[0].class
+#a.start_menu
+#a.seed
+#p a.instance_variable_get('@stations')[0]#.class
 #p a
 

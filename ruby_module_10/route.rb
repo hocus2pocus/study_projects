@@ -10,12 +10,16 @@ class Route
   include Validation
 
   attr_reader :stations
+  strong_attr_accessor :station_first, Station
+  strong_attr_accessor :station_last, Station
 
-   validate :station_first, :type, Station
-  # validate :station_last, :type, Station
+  validate :station_first, :type, Station
+  validate :station_last, :type, Station
 
   def initialize(station_first, station_last)
     @stations = [station_first, station_last]
+    @station_first = station_first
+    @station_last = station_last
     validate!
   end
 

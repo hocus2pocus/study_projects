@@ -12,11 +12,9 @@ class Train
   include Acсessors
 
   attr_reader :speed, :type, :wagons, :route, :number
+  attr_accessor_with_history :wagons, :route
 
   NUMBER = /^([0-9]|[a-z]){3}-?([0-9]|[a-z]){2}$/i
-
-  validate :number, :presence
-  validate :number, :format, NUMBER
 
   @@trains = {}
 

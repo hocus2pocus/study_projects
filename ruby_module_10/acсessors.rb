@@ -1,7 +1,7 @@
 module Acсessors
   def self.included(base)
     base.extend ClassMethods
-    #base.send :include, InstanceMethods
+    base.send :include, InstanceMethods
   end
 
   module ClassMethods
@@ -33,5 +33,8 @@ module Acсessors
         instance_variable_set(attribute_name, value)
       end
     end
+  end
+
+  module InstanceMethods
   end
 end

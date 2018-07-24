@@ -27,10 +27,10 @@ class Wagon
     @available_space - @taken_space
   end
 
-  # protected
+  protected
 
-  # def validate!
-  #   raise invalid_type unless %i[Cargo Passenger].include?(wagon_type)
-  #   raise places_error if available_space < 0
-  # end
+  def validate!
+    raise invalid_type unless %i[Cargo Passenger].include?(wagon_type)
+    raise places_error if available_space < 0
+  end
 end

@@ -10,6 +10,8 @@ class Station
   include Acсessors
 
   attr_reader :trains, :name
+  strong_attr_accessor :name, String
+  attr_accessor_with_history :trains
 
   validate :name, :type, String
   validate :name, :presence

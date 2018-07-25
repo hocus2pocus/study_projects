@@ -1,7 +1,6 @@
 module Acсessors
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
   end
 
   module ClassMethods
@@ -16,9 +15,13 @@ module Acсessors
 
         define_method("#{name}=".to_sym) do |value|
           history = instance_variable_get(attribute_history) || []
-          history << value
-          instance_variable_set(attribute_history, history)
-          instance_variable_set(attribute_name, value)
+          if instance_variable_get(attribute_name)
+            history << instance_variable_get(attribute_name)
+            instance_variable_set(attribute_name, value)
+            instance_variable_set(attribute_history, history)
+          else
+            instance_variable_set(attribute_name, value)
+          end
         end
       end
     end
@@ -33,8 +36,5 @@ module Acсessors
         instance_variable_set(attribute_name, value)
       end
     end
-  end
-
-  module InstanceMethods
   end
 end

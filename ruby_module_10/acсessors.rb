@@ -7,7 +7,7 @@ module Acсessors
     def attr_accessor_with_history(*attributes)
       attributes.each do |name|
         attribute_name = "@#{name}".to_sym
-        attribute_history = "#{name}_history".to_sym
+        attribute_history = "@#{name}_history".to_sym
 
         define_method("#{name}_history") { instance_variable_get(attribute_history) }
 
@@ -15,8 +15,10 @@ module Acсessors
 
         define_method("#{name}=".to_sym) do |value|
           history = instance_variable_get(attribute_history) || []
-          if instance_variable_get(attribute_name)
-            history << instance_variable_get(attribute_name)
+          current_value = instance_variable_get(attribute_name)
+
+          if current_value
+            history << current_value
             instance_variable_set(attribute_name, value)
             instance_variable_set(attribute_history, history)
           else
